@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+</head>
+<body>
+    <h1>Book List</h1>
+    <form th:action="@{/books}" method="get"> <!-- 수정된 부분 -->
+        <button type="submit">Show Book List</button> <!-- 버튼 생성 -->
+        
+    </form>
+</body>
+</html>

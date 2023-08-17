@@ -21,4 +21,8 @@ public class BookController {
         model.addAttribute("books", books);
         return "book-list";
     }
+    @GetMapping("/")
+    public String index() {
+        return "booklist";
+    }
 }
