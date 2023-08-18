@@ -20,6 +20,8 @@ public class Bookstorecontroller {
         model.addAttribute("bookList", bookList);
         return "bookstorelist";
     }
+    
+  
 }
 
 
