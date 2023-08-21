@@ -2,26 +2,69 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Book List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Book List</h1>
-    <table>
-        <tr>
-            <th>Num</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Company</th>
-            <th>ISBN</th>
-            <th>Count</th>
-        </tr>
-        <tr th:each="book : ${books}">
-            <td th:text="${book.num}"></td>
-            <td th:text="${book.title}"></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.company}"></td>
-            <td th:text="${book.isbn}"></td>
-            <td th:text="${book.count}"></td>
-        </tr>
-    </table>
+    <div class="container mt-5">
+        <h1 class="mb-4">Book List</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Num</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Company</th>
+                    <th>ISBN</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.num}"></td>
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.company}"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td>
+                        <button class="btn btn-primary toggle-btn"
+                                th:attr="data-book-id=${book.num}, data-count=${book.count}">
+                            <span th:if="${book.count == 1}">Unrecommend</span>
+                            <span th:if="${book.count == 0}">Recommend</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const toggleButtons = document.querySelectorAll(".toggle-btn");
+                
+                    toggleButtons.forEach(button => {
+                        button.addEventListener("click", function() {
+                            const bookId = this.getAttribute("data-book-id");
+                            const currentCount = parseInt(this.getAttribute("data-count"));
+                
+                            fetch(`/toggleRecommendation/${bookId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        this.setAttribute("data-count", data.newCount);
+                                        if (data.newCount === 1) {
+                                            this.querySelector("span").textContent = "Unrecommend";
+                                        } else {
+                                            this.querySelector("span").textContent = "Recommend";
+                                        }
+                                    } else {
+                                        console.error("Failed to toggle recommendation");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                });
+                        });
+                    });
+                });
+                </script>
+        </table>
+    </div>
 </body>
 </html>
