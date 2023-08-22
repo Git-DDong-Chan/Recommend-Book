@@ -16,15 +16,20 @@
       inset -1px 1px 2px rgba(224, 9, 9, 0.5);
     border-radius: 5px;
     width: 200px;
-    height: 200px;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin: 30px;
+    margin: 10px 50px 10px 50px;
     cursor: pointer;
     background-size: 150% 150%;
     background-position: center;
+  }
+  .table-title {
+    background-color: aliceblue;
+    text-align: center;
+    font-size: 34px; /* 원하는 글자 크기로 변경 */
   }
   .d-flex {
     display: flex;
@@ -36,26 +41,53 @@
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
 <div class="container my-3">
   <table class="table">
-    <thead class="table-dark"></thead>
+    <thead class="table-dark">
+      <tr class="table-title">
+        <th>robot703의 wishlist</th>
+      </tr>
+    </thead>
     <tbody>
-      <tr
-        th:each="rowIndex : ${#numbers.sequence(0, ((#lists.size(bookList) - 1) / 4))}"
-      >
+      <tr th:each="rowIndex : ${#numbers.sequence(0,2)}">
         <td>
           <div class="d-flex">
             <div
               class="test_obj"
-              th:each="colIndex : ${#numbers.sequence(0, 3)}"
-              th:if="${#lists.size(bookList) > rowIndex * 4 + colIndex}"
-              th:text="${bookList[rowIndex * 4 + colIndex].bookname}"
-              th:date="${bookList[rowIndex * 4 + colIndex].bookdate}"
-              th:content="${bookList[rowIndex * 4 + colIndex].bookcontent}"
+              th:each="colIndex : ${#numbers.sequence(0,3)}"
+              th:if="${#lists.size(paging.content) > rowIndex * 4 + colIndex}"
+              th:text="${paging.content[rowIndex * 4 + colIndex].bookname}"
+              th:date="${paging.content[rowIndex * 4 + colIndex].bookdate}"
+              th:content="${paging.content[rowIndex * 4 + colIndex].bookcontent}"
             ></div>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+
+  <div th:if="${!paging.isEmpty()}">
+    <ul class="pagination justify-content-center">
+      <li
+        class="page-item"
+        th:classappend="${!paging.hasPrevious} ? 'disabled'"
+      >
+        <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+          <span>이전</span>
+        </a>
+      </li>
+      <li
+        th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+        th:classappend="${page == paging.number} ? 'active'"
+        class="page-item"
+      >
+        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+      </li>
+      <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+        <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+          <span>다음</span>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <div
