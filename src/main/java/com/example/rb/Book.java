@@ -18,7 +18,6 @@ public class Book {
     private Long num;
     private String title;
     private String author;
-    private String company;
-    private String isbn;
+    private String comment;
     private int count;
 }
