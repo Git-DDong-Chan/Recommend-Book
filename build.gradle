@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 
 java {
 	sourceCompatibility = '17'
@@ -22,7 +22,11 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//스프링 시큐리티 for 회원가입
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+	  implementation 'org.springframework.boot:spring-boot-starter-web'
    compileOnly 'org.projectlombok:lombok'
    developmentOnly 'org.springframework.boot:spring-boot-devtools'
    annotationProcessor 'org.projectlombok:lombok'
@@ -35,6 +39,11 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+
+	//chatgpt
+	implementation 'org.json:json:20230227'
+    implementation 'org.springframework.kafka:spring-kafka'
+    testImplementation 'org.springframework.kafka:spring-kafka-test'
 }
+
+
