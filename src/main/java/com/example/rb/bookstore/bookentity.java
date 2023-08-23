@@ -16,6 +16,9 @@ public class bookentity {
     private String bookname;
 
     @Column
+    private String bookauthor;
+
+    @Column
     private int bookdate;
 
     @Column

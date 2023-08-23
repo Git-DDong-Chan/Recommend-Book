@@ -1,27 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-    <!-- sbb CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     <title>RB</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<!-- 네비게이션바 -->
-<nav th:replace="~{navbar :: navbarFragment}"></nav>
-<!-- 기본 템플릿 안에 삽입될 내용 Start -->
-<th:block layout:fragment="content">
-    <a th:href="@{/recommend/myemotion}" class="btn btn-primary">책 추천받기</a>
-</th:block>
-<!-- 기본 템플릿 안에 삽입될 내용 End -->
-<!-- Bootstrap JS -->
-<script th:src="@{/bootstrap.min.js}"></script>
-<!-- 자바스크립트 Start -->
-<th:block layout:fragment="script"></th:block>
-<!-- 자바스크립트 End -->
+    <nav th:replace="~{navbar :: navbarFragment}"></nav>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <a th:href="@{/recommend/myemotion}" class="btn btn-primary btn-block mb-3">책 추천받기</a>
+                <a th:href="@{/bookstore/list}" class="btn btn-primary btn-block mb-3">위시리스트</a>
+                <a th:href="@{/bookstore/list}" class="btn btn-primary btn-block mb-3">책꽂이</a>
+            </div>
+        </div>
+    </div>
+    <script src="/bootstrap.min.js"></script>
 </body>
 </html>

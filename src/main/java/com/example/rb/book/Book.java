@@ -1,10 +1,11 @@
 package com.example.rb.book;
 
+import com.example.rb.user.SiteUser;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,13 +13,16 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
 
-    @Column(columnDefinition = "TEXT")
+    @Id
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column
     private String author;
+
+    @Column
+    private Integer count=0;
+
+    @ManyToOne
+    private SiteUser user;
 }
