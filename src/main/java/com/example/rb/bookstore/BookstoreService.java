@@ -18,9 +18,9 @@ public class BookstoreService {
     private final BookstoreRepository bookstoreRepository;
    
   
-     public Page<bookentity> getList(int page) {
+     public Page<bookentity> getList(int page, String kw) {
         Pageable pageable = PageRequest.of(page, 12);
-        return this.bookstoreRepository.findAll(pageable);
+        return this.bookstoreRepository.findAllByKeyword(kw, pageable);
     }
     
 }

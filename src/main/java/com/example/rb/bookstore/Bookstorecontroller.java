@@ -20,14 +20,14 @@ public class Bookstorecontroller {
     
   
     @GetMapping("/bookstore/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<bookentity> paging =this.bookstoreservice.getList(page);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "kw", defaultValue = "") String kw) {
+        Page<bookentity> paging =this.bookstoreservice.getList(page,kw);
         model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
         return "bookstorelist";
     }
     
   
 }
-
 
 
