@@ -1,6 +1,11 @@
 package com.example.rb.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,5 +92,20 @@ public class BookController {
     public String deleteChecks() {
         bookService.deleteChecks();
         return "redirect:/recommend/list";
+    }
+
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/bookstore/list")
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "kw", defaultValue = "") String kw) {
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = authentication.getName();
+        Page<Book> paging =this.bookService.getList(page,kw);
+
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        model.addAttribute("loggedInUsername", loggedInUsername);
+        return "bookstorelist";
     }
 }

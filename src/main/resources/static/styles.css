@@ -1,24 +1,24 @@
 .recommendation-btn {
-    transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .checked {
-    background-color: green;
+  background-color: green;
 }
 
 .not-checked {
-    background-color: gray;
+  background-color: gray;
 }
 
 /* Remove the button border */
 .btn {
-    border: none;
+  border: none;
 }
-.checked:hover{
-    background-color: gray;
+.checked:hover {
+  background-color: gray;
 }
-.not-checked:hover{
-    background-color: green;
+.not-checked:hover {
+  background-color: green;
 }
 .table-container {
   background-position: center center;
@@ -26,19 +26,20 @@
   padding: 20px;
 }
 .test_obj {
-  background: url("/images/1.png");
+  background: url("/images/first.png");
 
   border: none;
-  width: 200px;
-  height: 180px;
+  width: 210px;
+  height: 260px;
   display: flex;
   align-items: flex-start; /* Align text to the top */
   margin: 0px 15px 0px 100px; /* Adjust margin to center the text vertically */
   cursor: pointer;
   background-size: 100% 100%;
   background-position: center;
-
-  padding-left: 4dvh; /* Adjust this value to control the space between the top and text */
+  overflow: hidden;
+  padding-left: 1dvh;
+  padding-top: 2dvh; /* Adjust this value to control the space between the top and text */
 }
 
 .d-flex {

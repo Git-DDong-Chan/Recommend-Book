@@ -2,11 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" style="background-color:white; background-size: cover; background-position: center; height: 100%;"></html>
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
 <div class="container text-center" >
   <br>
-  <h1 style="color: #e9ca75; font-family: 'Times New Roman', serif; font-size: 50px;">
-      <a href="#" id="wishlistLink" th:text="${loggedInUsername}" style="text-decoration: none; color: inherit;"></a><a style="text-decoration: none; color: inherit;">의 책꽂이</a>
+  <h1 style="color: #090700; font-family: 'Nanum Gothic', sans-serif; font-size: 50px;">
+      <a href="#" id="wishlistLink" th:text="${loggedInUsername}" style="text-decoration: none; color: inherit;"></a><a style="text-decoration: none; color: inherit;">'S LIBRARY</a>
   </h1>
 </div>
 
@@ -24,13 +26,14 @@
           <tr th:each="rowIndex : ${#numbers.sequence(0,2)}">
             
               <div class="d-flex">
-                <div
+                <div 
                   class="test_obj"
                   th:each="colIndex : ${#numbers.sequence(0,3)}"
                   th:if="${#lists.size(paging.content) > rowIndex * 4 + colIndex}"
-                  th:text="${paging.content[rowIndex * 4 + colIndex].bookname}"
-                  th:date="${paging.content[rowIndex * 4 + colIndex].bookdate}"
-                  th:content="${paging.content[rowIndex * 4 + colIndex].bookcontent}"
+                  th:text="${paging.content[rowIndex * 4 + colIndex].title}"
+                  th:author="${paging.content[rowIndex * 4 + colIndex].author}"
+                  th:content="${paging.content[rowIndex * 4 + colIndex].comment}"
+                  style="color: #090700; font-family: 'Nanum Gothic', sans-serif;"
                 ></div>
               </div>
             
@@ -117,14 +120,17 @@ function formatText(text, maxLength) {
 $(document).ready(function () {
   $(".test_obj").click(function () {
     var bookName = $(this).text();
-    var bookDate = $(this).attr("date");
+    var bookauthor = $(this).attr("author");
     var bookContent = $(this).attr("content");
-    var formattedBookContent = formatText(bookContent, 18);
+    
 
     $("#bookModalText").text(" 책 제목: " + bookName);
-    $("#bookModalDate").text("작성일시: " + bookDate);
+    $("#bookModalDate").text("작성일시: " +  bookauthor);
 
-    const contentText = formattedBookContent;
+
+    
+    var formattedBookContent = formatText(bookContent, 18);
+    const contentText = formattedBookContent; 
     if (contentText.length > 100) {
       const truncatedText = contentText.substring(0, 200);
       $("#bookModalContent").html("책내용: " + truncatedText);
@@ -167,24 +173,6 @@ $(document).ready(function () {
 
 
 
-<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Include FontAwesome library -->
-<script>
-  $(document).ready(function() {
-    let isFavorite = false;
-
-    $("#favoriteButton").click(function() {
-      isFavorite = !isFavorite;
-
-      if (isFavorite) {
-        $("#favoriteStar").removeClass("far").addClass("fas").css("color", "yellow");
-      } else {
-        $("#favoriteStar").removeClass("fas").addClass("far").css("color", "black");
-      }
-    });
-
-    // Rest of your code
-  });
-</script>
 
 
 
