@@ -41,11 +41,11 @@ public class BookController {
 
     @GetMapping("/books")
     public String listBooks(Model model) {
-        List<Book> books = bookRepository.findAll();
+        List<Book> books = bookRepository.findByChecks(1);
         model.addAttribute("books", books);
         return "book-list";
     }
-
+    
     @ResponseBody
     @PostMapping("/saveComment/{id}")
     public Map<String, Object> saveComment(@PathVariable Long id, @RequestParam String content) {
@@ -68,8 +68,8 @@ public class BookController {
     }
 
     @ResponseBody
-    @GetMapping("/toggleRecommendation/{id}")
-    public Map<String, Object> toggleRecommendation(@PathVariable Long id) {
+    @GetMapping("/toggleRecommend/{id}")
+    public Map<String, Object> toggleRecommend(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
 
         Optional<Book> optionalBook = bookRepository.findById(id);

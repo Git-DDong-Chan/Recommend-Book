@@ -1,4 +1,4 @@
-package com.example.rb;
+package com.example.rb.book;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
