@@ -8,7 +8,9 @@
     <h5 class="my-3 border-bottom pb-2">당신의 감정을 말해주세요.</h5>
             <textarea name="content" th:field="*{content}" id="content" class="form-control" rows="10"></textarea>
         </div>
-        <input type="submit" value="책 추천받기" class="btn btn-primary my-2">
+        <form th:action="@{/recommend/list}" method="post">
+            <button type="submit" class="btn btn-primary my-2">책 추천받기</button>
+        </form>
     </form>
 </div>
 </html>

@@ -1,0 +1,22 @@
+.recommendation-btn {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.checked {
+    background-color: green;
+}
+
+.not-checked {
+    background-color: gray;
+}
+
+/* Remove the button border */
+.btn {
+    border: none;
+}
+.checked:hover{
+    background-color: gray;
+}
+.not-checked:hover{
+    background-color: green;
+}

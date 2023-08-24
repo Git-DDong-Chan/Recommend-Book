@@ -44,6 +44,6 @@ class InputController {
         SiteUser siteUser = this.userService.getUser(principal.getName());
         Input input = this.inputService.create(inputForm.getContent(), siteUser);
         this.chatGptMessageService.sendMessage(input);
-        return "redirect:/recommend/myemotion"; // 질문 저장후 질문목록으로 이동
+        return "redirect:/recommend/list";
     }
 }

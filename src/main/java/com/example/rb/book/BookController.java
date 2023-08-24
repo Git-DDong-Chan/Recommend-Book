@@ -1,48 +1,35 @@
-package com.example.rb;
+package com.example.rb.book;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import lombok.RequiredArgsConstructor;
+
+
 @Controller
-@Transactional
+@RequiredArgsConstructor
 public class BookController {
-    @Autowired
-    private BookRepository bookRepository;
+
+    private final BookRepository bookRepository;
+    private final BookService bookService;
 
 
-    @GetMapping("/books")
+    @GetMapping("/recommend/list")
     public String listBooks(Model model) {
         List<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
-        return "book-list";
+        return "recommend_list";
     }
-
-    @GetMapping("/getComment/{id}")
-    @ResponseBody
-    public String getComment(@PathVariable Long id) {
-        // 책의 댓글 내용을 가져와서 반환
-        Book book = bookRepository.findById(id).orElse(null);
-        if (book != null) {
-            return book.getComment();
-        }
-        return "";
-    }
-
-    
-
-    
+  
     @ResponseBody
     @GetMapping("/toggleRecommendation/{id}")
     public Map<String, Object> toggleRecommendation(@PathVariable Long id) {
@@ -64,8 +51,10 @@ public class BookController {
         return response;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "booklist";
+
+    @PostMapping("/recommend/delete-count-zero")
+    public String deleteCount() {
+        bookService.deleteCount();
+        return "redirect:/recommend/list";
     }
 }

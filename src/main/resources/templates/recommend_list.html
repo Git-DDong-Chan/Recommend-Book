@@ -1,0 +1,89 @@
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container">
+    <div class="container mt-5">
+      <h1 class="mb-4">Recommend Book List</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr style="text-align: center">
+            <th>Num</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Check</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            style="text-align: center"
+            th:each="book, iterStat : ${books}"
+            th:if="${book.count == 0}"
+          >
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td>
+              <button
+                class="btn btn-primary toggle-btn recommendation-btn"
+                th:classappend="${book.count == 1} ? 'checked' : 'not-checked'"
+                th:attr="data-book-id=${book.id}, data-count=${book.count}"
+              >
+                <span th:if="${book.count == 1}">Checked</span>
+                <span th:if="${book.count == 0}">Would you read?</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form method="post" th:action="@{/recommend/delete-count-zero}">
+        <button type="submit" class="btn btn-primary my-2">확인</button>
+      </form>
+      <button id="refreshButton" class="btn btn-primary my-2">
+        책 추천받기
+      </button>
+    </div>
+  </div>
+
+  <script layout:fragment="script" type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleButtons = document.querySelectorAll(".toggle-btn");
+      const refreshButton = document.getElementById("refreshButton");
+
+      toggleButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const bookId = this.getAttribute("data-book-id");
+          const currentCount = parseInt(this.getAttribute("data-count"));
+          const buttonSpan = this.querySelector("span");
+
+          fetch(`/toggleRecommendation/${bookId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                this.setAttribute("data-count", data.newCount);
+                buttonSpan.textContent =
+                  data.newCount === 1 ? "Checked" : "Would you Read?";
+
+                // Update the button class based on the newCount
+                if (data.newCount === 1) {
+                  button.classList.add("checked");
+                  button.classList.remove("not-checked");
+                } else {
+                  button.classList.remove("checked");
+                  button.classList.add("not-checked");
+                }
+              } else {
+                console.error("Failed to toggle recommendation");
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+      });
+
+      refreshButton.addEventListener("click", function () {
+        setTimeout(function () {
+          window.location.reload();
+        }, 1000);
+      });
+    });
+  </script>
+</html>
