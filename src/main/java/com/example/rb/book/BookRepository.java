@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     List<Book> findAll();
-    List<Book> findByCountEquals(int checks);
+    List<Book> findByChecks(int checks);
 }

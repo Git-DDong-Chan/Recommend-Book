@@ -15,7 +15,7 @@
           <tr
             style="text-align: center"
             th:each="book, iterStat : ${books}"
-            th:if="${book.count == 0}"
+            th:if="${book.checks == 0}"
           >
             <td th:text="${iterStat.count}"></td>
             <td th:text="${book.title}"></td>
@@ -23,17 +23,17 @@
             <td>
               <button
                 class="btn btn-primary toggle-btn recommendation-btn"
-                th:classappend="${book.count == 1} ? 'checked' : 'not-checked'"
-                th:attr="data-book-id=${book.id}, data-count=${book.count}"
+                th:classappend="${book.checks == 1} ? 'checked' : 'not-checked'"
+                th:attr="data-book-id=${book.num}, data-count=${book.checks}"
               >
-                <span th:if="${book.count == 1}">Checked</span>
-                <span th:if="${book.count == 0}">Would you read?</span>
+                <span th:if="${book.checks == 1}">Checked</span>
+                <span th:if="${book.checks == 0}">Would you read?</span>
               </button>
             </td>
           </tr>
         </tbody>
       </table>
-      <form method="post" th:action="@{/recommend/delete-count-zero}">
+      <form method="post" th:action="@{/recommend/delete-checks-zero}">
         <button type="submit" class="btn btn-primary my-2">확인</button>
       </form>
       <button id="refreshButton" class="btn btn-primary my-2">
@@ -57,12 +57,12 @@
             .then((response) => response.json())
             .then((data) => {
               if (data.success) {
-                this.setAttribute("data-count", data.newCount);
+                this.setAttribute("data-count", data.newChecks);
                 buttonSpan.textContent =
-                  data.newCount === 1 ? "Checked" : "Would you Read?";
+                  data.newChecks === 1 ? "Checked" : "Would you Read?";
 
                 // Update the button class based on the newCount
-                if (data.newCount === 1) {
+                if (data.newChecks === 1) {
                   button.classList.add("checked");
                   button.classList.remove("not-checked");
                 } else {

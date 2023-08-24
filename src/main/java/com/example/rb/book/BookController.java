@@ -28,13 +28,12 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping("/recommend/list")
-    public String listRecommendBooks(Model model) {
+    public String listrecommendBooks(Model model) {
         List<Book> books = bookRepository.findAll();
         model.addAttribute("books", books);
         return "recommend_list";
     }
 
-    
     @GetMapping("/books")
     public String listBooks(Model model) {
         List<Book> books = bookRepository.findAll();
@@ -71,28 +70,22 @@ public class BookController {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
-            int newCount = book.getCount() == 0 ? 1 : 0;
             int newChecks = book.getChecks() == 0 ? 1 : 0;
-            book.setCount(newCount);
             book.setChecks(newChecks);
-
             bookRepository.save(book);
 
             response.put("success", true);
-            response.put("newCount", newCount);
             response.put("newChecks", newChecks);
-
         } else {
             response.put("success", false);
         }
+
         return response;
     }
 
-
-
-    @PostMapping("/recommend/delete-check-zero")
-    public String deleteCheck() {
-        bookService.deleteCheck();
+    @PostMapping("/recommend/delete-checks-zero")
+    public String deleteChecks() {
+        bookService.deleteChecks();
         return "redirect:/recommend/list";
     }
 }
