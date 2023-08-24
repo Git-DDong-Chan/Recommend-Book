@@ -205,14 +205,16 @@
         });
 
         btnOpenModals.forEach((btnOpenModal) => {
-          btnOpenModal.addEventListener("click", function () {
-            const bookComment = this.getAttribute("data-comment");
+            btnOpenModal.addEventListener("click", function () {
+                const bookComment = this.getAttribute("data-comment");
+                const bookId = this.getAttribute("data-book-id"); // 도서의 고유 ID 가져오기
 
-            // textarea에 코멘트 내용을 표시
-            inputText.value = bookComment || ""; // 코멘트가 없을 경우 빈 문자열 사용
+                // textarea에 코멘트 내용을 표시
+                inputText.value = bookComment || ""; // 코멘트가 없을 경우 빈 문자열 사용
 
-            modalOn();
-          });
+                modalOn();
+                saveButton.setAttribute("data-book-id", bookId); // SAVE 버튼에 도서의 고유 ID 설정
+            });
         });
 
         // 모달 열기 버튼 이벤트 리스너
