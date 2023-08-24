@@ -1,16 +1,20 @@
 
-<html xmlns:th="http://www.thymeleaf.org" style="background-image: url('/images/wooden.png'); background-size: cover; background-position: center; height: 100%;"></html>
+<html xmlns:th="http://www.thymeleaf.org" style="background-color:white; background-size: cover; background-position: center; height: 100%;"></html>
 <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/styles.css}" />
 
+<div class="container text-center" >
+  <br>
+  <h1 style="color: #e9ca75; font-family: 'Times New Roman', serif; font-size: 50px;">
+      <a href="#" id="wishlistLink" th:text="${loggedInUsername}" style="text-decoration: none; color: inherit;"></a><a style="text-decoration: none; color: inherit;">의 책꽂이</a>
+  </h1>
+</div>
 
-  <a href="#" id="wishlistLink" th:text="${loggedInUsername}"></a><a>의 책꽂이</a>
-  <input type="text" id="search_kw" class="form-control" th:value="${kw}" style="width: 50%;">
+<div class="d-flex justify-content-end">
+  <input type="text" id="search_kw" class="form-control" th:value="${kw}" style="width: 30%;">
   <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-  <td><textarea cols="40" rows="10" name="content" placeholder="내용을 입력하세요"></textarea></td>
-<style>
- 
-</style>
+</div>
+
 
 
   <div class="table-container">
@@ -66,28 +70,6 @@
 </div>
   
 
-<script layout:fragment="script" type='text/javascript'>
-    const page_elements = document.getElementsByClassName("page-link");
-    Array.from(page_elements).forEach(function(element) {
-        element.addEventListener('click', function() {
-            document.getElementById('page').value = this.dataset.page;
-            document.getElementById('searchForm').submit();
-        });
-    });
-    const btn_search = document.getElementById("btn_search");
-    btn_search.addEventListener('click', function() {
-        document.getElementById('kw').value = document.getElementById('search_kw').value;
-        document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
-        document.getElementById('searchForm').submit();
-    });
-</script>
-<script>
-  document.getElementById("wishlistLink").addEventListener("click", function(event) {
-      event.preventDefault(); // 이벤트의 기본 동작인 링크 이동을 막습니다.
-      window.location.href = "http://localhost:8080/bookstore/list?kw=&page=0"; // 원하는 URL로 이동합니다.
-  });
-</script>
-
 
 
 
@@ -118,47 +100,94 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 <script>
- $(document).ready(function () {
-    function formatText(text, maxLength) {
-        var result = '';
-        for (var i = 0; i < text.length; i += maxLength) {
-            result += text.substring(i, i + (i === 0 ? maxLength : maxLength + 4)); // Use maxLength or maxLength - 4
-            if (i + maxLength < text.length) {
-                result += "<br>";
-                
-            }
-        }
-        return result;
+function formatText(text, maxLength) {
+  var result = "";
+  for (var i = 0; i < text.length; i += maxLength) {
+    result += text.substring(i, i + (i === 0 ? maxLength : maxLength + 4)); // Use maxLength or maxLength - 4
+    if (i + maxLength < text.length) {
+      result += "<br>";
+    }
+  }
+  return result;
+}
+
+$(document).ready(function () {
+  $(".test_obj").click(function () {
+    var bookName = $(this).text();
+    var bookDate = $(this).attr("date");
+    var bookContent = $(this).attr("content");
+    var formattedBookContent = formatText(bookContent, 18);
+
+    $("#bookModalText").text(" 책 제목: " + bookName);
+    $("#bookModalDate").text("작성일시: " + bookDate);
+
+    const contentText = formattedBookContent;
+    if (contentText.length > 100) {
+      const truncatedText = contentText.substring(0, 200);
+      $("#bookModalContent").html("책내용: " + truncatedText);
+      $("#remainingContent").html(contentText.substring(200)); // Use .html() here
+    } else {
+      $("#bookModalContent").html("책내용:" + contentText);
+      $("#remainingContent").text("");
     }
 
-    $(".test_obj").click(function () {
-        var bookName = $(this).text();
-        var bookDate = $(this).attr("date");
-        var bookContent = $(this).attr("content");
-        var formattedBookContent = formatText(bookContent, 18);
-
-        $("#bookModalText").text(" 책 제목: " +bookName);
-        $("#bookModalDate").text("작성일시: " + bookDate);
-        
-        const contentText = formattedBookContent;
-        if (contentText.length > 100) {
-            const truncatedText = contentText.substring(0, 200);
-            $("#bookModalContent").html("책내용: " + truncatedText);
-            $("#remainingContent").html(contentText.substring(200)); // Use .html() here
-        } else {
-            $("#bookModalContent").html("책내용:" + contentText);
-            $("#remainingContent").text("");
-        }
-
-        // Additional code to fetch and display other book details if needed
-        $("#bookModal").modal("show");
-    });
+    // Additional code to fetch and display other book details if needed
+    $("#bookModal").modal("show");
+  });
 });
 
+$(document).ready(function () {
+  const page_elements = document.getElementsByClassName("page-link");
+  Array.from(page_elements).forEach(function (element) {
+    element.addEventListener("click", function () {
+      document.getElementById("page").value = this.dataset.page;
+      document.getElementById("searchForm").submit();
+    });
+  });
 
+  const btn_search = document.getElementById("btn_search");
+  btn_search.addEventListener("click", function () {
+    document.getElementById("kw").value =
+      document.getElementById("search_kw").value;
+    document.getElementById("page").value = 0; // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+    document.getElementById("searchForm").submit();
+  });
 
-
+  document
+    .getElementById("wishlistLink")
+    .addEventListener("click", function (event) {
+      event.preventDefault();
+      window.location.href = "http://localhost:8080/bookstore/list?kw=&page=0";
+    });
+});
 </script>
+
+
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Include FontAwesome library -->
+<script>
+  $(document).ready(function() {
+    let isFavorite = false;
+
+    $("#favoriteButton").click(function() {
+      isFavorite = !isFavorite;
+
+      if (isFavorite) {
+        $("#favoriteStar").removeClass("far").addClass("fas").css("color", "yellow");
+      } else {
+        $("#favoriteStar").removeClass("fas").addClass("far").css("color", "black");
+      }
+    });
+
+    // Rest of your code
+  });
+</script>
+
+
+
+
 
 
