@@ -20,3 +20,35 @@
 .not-checked:hover{
     background-color: green;
 }
+.table-container {
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+.test_obj {
+  background: url("/images/1.png");
+
+  border: none;
+  width: 200px;
+  height: 180px;
+  display: flex;
+  align-items: flex-start; /* Align text to the top */
+  margin: 0px 15px 0px 100px; /* Adjust margin to center the text vertically */
+  cursor: pointer;
+  background-size: 100% 100%;
+  background-position: center;
+
+  padding-left: 4dvh; /* Adjust this value to control the space between the top and text */
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center; /* 변경된 부분: 중앙 정렬로 변경 */
+  align-items: center; /* 추가된 부분: 세로 중앙 정렬 설정 */
+  flex-wrap: wrap;
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}

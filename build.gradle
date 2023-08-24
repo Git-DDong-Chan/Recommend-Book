@@ -39,10 +39,14 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
 	//chatgpt
-
 	implementation 'org.json:json:20230227'
     implementation 'org.springframework.kafka:spring-kafka'
     testImplementation 'org.springframework.kafka:spring-kafka-test'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
+
+
+
+
 
 

@@ -11,7 +11,6 @@ public interface BookstoreRepository extends JpaRepository<bookentity, String> {
 
 @Query("SELECT b FROM bookentity b WHERE b.bookavailable = 1 AND LOWER(b.bookname) LIKE %:kw% ORDER BY b.bookdate DESC")
    Page<bookentity>findAllByKeyword(@Param("kw") String kw, Pageable pageable);
- 
 
     
 }
