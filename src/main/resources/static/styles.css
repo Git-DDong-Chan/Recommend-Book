@@ -1,0 +1,44 @@
+.table-container {
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
+.test_obj {
+  background: linear-gradient(
+      to right,
+      rgba(190, 41, 41, 0.3) 3px,
+      rgba(82, 10, 10, 0.5) 5px,
+      rgba(255, 255, 255, 0.25) 7px,
+      rgba(255, 255, 255, 0.25) 10px,
+      transparent 12px,
+      transparent 16px,
+      rgba(255, 255, 255, 0.25) 20px,
+      transparent 22px
+    ),
+    url("/images/book2.png");
+
+  border: none;
+  width: 200px;
+  height: 160px;
+  display: flex;
+  align-items: flex-start; /* Align text to the top */
+
+  margin: 8px 40px 10px 100px; /* Adjust margin to center the text vertically */
+  cursor: pointer;
+  background-size: 150% 150%;
+  background-position: center;
+
+  padding-top: 10px; /* Adjust this value to control the space between the top and text */
+}
+
+.d-flex {
+  display: flex;
+  justify-content: center; /* 변경된 부분: 중앙 정렬로 변경 */
+  align-items: center; /* 추가된 부분: 세로 중앙 정렬 설정 */
+  flex-wrap: wrap;
+
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 20px;
+}
