@@ -18,7 +18,7 @@ public class BookService {
     }
 
     @Transactional
-    public void deleteCount() {
+    public void deleteCheck() {
         List<Book> booksToDelete = bookRepository.findByCountEquals(0);
         bookRepository.deleteAll(booksToDelete);
     }

@@ -1,4 +1,4 @@
-package com.example.rb;
+package com.example.rb.book;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +19,6 @@ public class Book {
     private String title;
     private String author;
     private String comment;
-    private int check;
+    private int checks;
     private int count;
 }
