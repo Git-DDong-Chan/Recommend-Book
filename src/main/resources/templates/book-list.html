@@ -166,7 +166,7 @@ body {
             const currentCount = parseInt(this.getAttribute("data-count"));
             const buttonSpan = this.querySelector("span");
 
-            fetch(`/toggleRecommendation/${bookId}`)
+            fetch(`/toggleRecommend/${bookId}`)
               .then((response) => response.json())
               .then((data) => {
                 if (data.success) {
@@ -188,8 +188,8 @@ body {
               .catch((error) => {
                 console.error("Error:", error);
               });
+            });
           });
-        });
 
         btnOpenModals.forEach((btnOpenModal) => {
             btnOpenModal.addEventListener("click", function () {

@@ -1,4 +1,4 @@
-package com.example.rb;
+package com.example.rb.book;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="tbl_book")
+@Table(name="book")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +20,6 @@ public class Book {
     private String author;
     private String comment;
     private int count;
+    private int checks;
     
 }
