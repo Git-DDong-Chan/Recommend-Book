@@ -1,10 +1,5 @@
 package com.example.rb;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +9,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @Transactional
@@ -29,20 +29,29 @@ public class BookController {
         return "book-list";
     }
 
-    @GetMapping("/getComment/{id}")
     @ResponseBody
-    public String getComment(@PathVariable Long id) {
-        // 책의 댓글 내용을 가져와서 반환
-        Book book = bookRepository.findById(id).orElse(null);
-        if (book != null) {
-            return book.getComment();
+    @PostMapping("/saveComment/{id}")
+    public Map<String, Object> saveComment(@PathVariable Long id, @RequestParam String content) {
+        Map<String, Object> response = new HashMap<>();
+
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            
+            book.setComment(content); // Book 엔티티에 코멘트 업데이트
+
+            bookRepository.save(book);
+
+            response.put("success", true);
+        } else {
+            response.put("success", false);
         }
-        return "";
+
+        return response;
     }
 
-    
 
-    
+
     @ResponseBody
     @GetMapping("/toggleRecommendation/{id}")
     public Map<String, Object> toggleRecommendation(@PathVariable Long id) {
