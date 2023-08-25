@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -39,7 +35,6 @@ public class BookController {
         return "recommend_list";
     }
 
-    
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/books")
     public String listBooks(Model model) {
@@ -47,7 +42,6 @@ public class BookController {
         model.addAttribute("books", books);
         return "book-list";
     }
-    
 
     @ResponseBody
     @PostMapping("/saveComment/{id}")
@@ -57,7 +51,7 @@ public class BookController {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
-            
+
             book.setComment(content); // Book 엔티티에 코멘트 업데이트
 
             bookRepository.save(book);
@@ -115,17 +109,17 @@ public class BookController {
     @PostMapping("/recommend/delete-checks-zero")
     public String deleteChecks() {
         bookService.deleteChecks();
-        return "redirect:/recommend/list";
+        return "redirect:/books";
     }
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/bookstore/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,@RequestParam(value = "kw", defaultValue = "") String kw) {
-        
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "kw", defaultValue = "") String kw) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String loggedInUsername = authentication.getName();
-        Page<Book> paging =this.bookService.getList(page,kw);
+        Page<Book> paging = this.bookService.getList(page, kw);
 
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);

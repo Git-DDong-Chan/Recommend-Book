@@ -1,7 +1,16 @@
 <html layout:decorate="~{layout}">
   <div layout:fragment="content" class="container">
     <div class="container mt-5">
-      <h1 class="mb-4">Recommend Book List</h1>
+      <div class="row">
+        <div class="col">
+          <h1 class="mb-4">Recommend Book List</h1>
+        </div>
+        <div class="col text-end">
+          <button id="refreshButton" class="btn btn-primary my-2">
+            책 추천받기
+          </button>
+        </div>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr style="text-align: center">
@@ -33,14 +42,15 @@
           </tr>
         </tbody>
       </table>
-      <form method="post" th:action="@{/recommend/delete-checks-zero}">
-        <button type="submit" class="btn btn-primary my-2">확인</button>
-      </form>
-      <button id="refreshButton" class="btn btn-primary my-2">
-        책 추천받기
-      </button>
+      <div class="text-end mt-2">
+        <form method="post" th:action="@{/recommend/delete-checks-zero}">
+          <button type="submit" class="btn btn-primary">확인</button>
+        </form>
+      </div>
     </div>
   </div>
+</html>
+
 
   <script layout:fragment="script" type="text/javascript">
     document.addEventListener("DOMContentLoaded", function () {
@@ -82,7 +92,7 @@
       refreshButton.addEventListener("click", function () {
         setTimeout(function () {
           window.location.reload();
-        }, 1000);
+        }, 700);
       });
     });
   </script>
