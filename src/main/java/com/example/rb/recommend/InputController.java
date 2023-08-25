@@ -4,12 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.security.access.prepost.PreAuthorize;
-
 import org.springframework.validation.BindingResult;
 
-import com.example.rb.recommend.InputForm;
 import com.example.rb.user.SiteUser;
 import com.example.rb.user.UserService;
 import com.example.rb.chatgpt.ChatGptMessageService;
@@ -37,12 +34,12 @@ class InputController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/myemotion")
-    public String createInput(@Valid InputForm inputForm, BindingResult bindingResult, Principal principal) {
+    public String createInput(@Valid InputForm inputForm, BindingResult bindingResult, Principal principal, @LoginUser SiteUser user) {
         if (bindingResult.hasErrors()) {
             return "recommend";
         }
-        SiteUser siteUser = this.userService.getUser(principal.getName());
-        Input input = this.inputService.create(inputForm.getContent(), siteUser);
+        // SiteUser siteUser = this.userService.getUser(principal.getName());
+        Input input = this.inputService.create(inputForm.getContent(), user.getUsername());
         this.chatGptMessageService.sendMessage(input);
         return "redirect:/recommend/list";
     }
