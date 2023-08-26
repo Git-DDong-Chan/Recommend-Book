@@ -4,6 +4,11 @@
   background-color: #f8f9fa; /* 추가: 배경색 설정 */
 }
 
+.bodycss1 {
+  font-family: "Nanum Gothic", sans-serif;
+  background-color: #f8f9fa; /* 추가: 배경색 설정 */
+}
+
 nav {
   text-align: center;
   font-family: 'Nanum Gothic', sans-serif;
@@ -11,9 +16,19 @@ nav {
 
 }
 
+footer {
+  position: absolute; /* Set the footer as absolutely positioned */
+  bottom: 0; /* Place the footer at the bottom */
+  background-color: #d4d4d4; /* Background color of the footer */
+  padding-top: 25px; /* Add padding for content */
+  text-align: center; /* Center-align content in the footer */
+  width: 100%;
+}
+
 .navbar-nav .dropdown-menu {
   right: 5px;
   left: auto; /* 원하는 만큼 왼쪽으로 조정 */
+  
 }
 
 /* 테이블 스타일 */
