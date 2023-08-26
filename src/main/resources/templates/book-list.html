@@ -17,7 +17,7 @@
         </thead>
         <tbody>
           <tr th:each="book : ${books}">
-            <td th:text="${book.num}" class="align-middle"></td>
+            <td class="book-number"></td> <!-- 수정된 부분 -->
             <td th:text="${book.title}" class="align-middle"></td>
             <td th:text="${book.author}" class="align-middle"></td>
             <td class="align-middle">
@@ -66,6 +66,15 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+
+        const bookNumberCells = document.querySelectorAll(".book-number");
+
+        bookNumberCells.forEach((cell, index) => {
+          cell.textContent = index + 1;
+        });
+
+
+        
         const toggleButtons = document.querySelectorAll(".toggle-btn");
         const btnOpenModals = document.querySelectorAll(".btn-open-modal");
         const inputText = document.getElementById("input-text"); // textarea 요소

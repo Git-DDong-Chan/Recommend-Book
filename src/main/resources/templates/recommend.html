@@ -13,11 +13,12 @@
           th:field="*{content}"
           id="content"
           class="form-control"
-          rows="10"
+          rows="9"
         ></textarea>
       </div>
       <form th:action="@{/recommend/list}" method="post">
-        <button type="submit" class="btn btn-primary my-2">책 추천받기</button>
+        <br>
+        <button type="submit" class="btn btn-dark my-2">책 추천받기</button>
       </form>
     </form>
   </div>
