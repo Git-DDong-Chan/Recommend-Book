@@ -32,4 +32,11 @@ public class UserService {
             throw new DataNotFoundException("siteuser not found");
         }
     }
+
+    public Long getUserIdByUsername(String username) {
+        SiteUser siteUser = getUser(username);
+        return siteUser.getId(); // SiteUser 클래스의 ID가 Long 타입일 경우
+    }
+
+
 }

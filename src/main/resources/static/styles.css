@@ -1,6 +1,6 @@
 .bodycss {
   text-align: center;
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Nanum Gothic", sans-serif;
   background-color: #f8f9fa; /* 추가: 배경색 설정 */
 }
 
@@ -19,9 +19,6 @@
 .custom-table .recommendation-btn {
   padding: 5px 10px;
 }
-
-
-
 
 .recommendation-btn {
   transition: background-color 0.3s ease-in-out;
@@ -104,8 +101,6 @@
 .read + .comment-input {
   display: block;
 }
-
-
 
 /* 모달 스타일 */
 #modal.modal-overlay {

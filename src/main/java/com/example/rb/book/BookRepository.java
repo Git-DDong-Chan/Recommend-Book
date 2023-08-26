@@ -11,10 +11,17 @@ import org.springframework.data.repository.query.Param;
 
 
 public interface BookRepository extends JpaRepository<Book, Long> {
+
     List<Book> findAll();
+    
     List<Book> findByChecks(int checks);
 
+    @Query("SELECT b FROM Book b WHERE b.user_id = :loggedInUserId1 AND b.checks = :checks")
+    List<Book> findByCheck(@Param("loggedInUserId1") Long loggedInUserId1, @Param("checks") int checks);
 
-    @Query("SELECT b FROM Book b WHERE b.count = 1 AND LOWER(b.title) LIKE %:kw% ")
-   Page<Book>findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+
+   @Query("SELECT b FROM Book b WHERE b.user_id=:loggedInUserId AND b.count=1 AND LOWER(b.title) LIKE %:kw%")
+Page<Book> findAllByKeyword(@Param("kw") String kw, @Param("loggedInUserId") Long loggedInUserId, Pageable pageable);
+
+
 }

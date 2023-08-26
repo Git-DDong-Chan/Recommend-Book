@@ -1,10 +1,12 @@
 package com.example.rb.book;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.rb.user.SiteUser;
+import com.example.rb.user.UserService;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -26,7 +31,7 @@ public class BookController {
 
     private final BookRepository bookRepository;
     private final BookService bookService;
-
+   
     @GetMapping("/recommend/list")
     public String listrecommendBooks(Model model) {
         List<Book> books = bookRepository.findAll();
@@ -34,13 +39,6 @@ public class BookController {
         return "recommend_list";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/books")
-    public String listBooks(Model model) {
-        List<Book> books = bookRepository.findByChecks(1);
-        model.addAttribute("books", books);
-        return "book-list";
-    }
 
     @ResponseBody
     @PostMapping("/saveComment/{id}")
@@ -111,18 +109,39 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/bookstore/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "kw", defaultValue = "") String kw) {
+ @Autowired
+private UserService userService;
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUsername = authentication.getName();
-        Page<Book> paging = this.bookService.getList(page, kw);
 
-        model.addAttribute("paging", paging);
-        model.addAttribute("kw", kw);
-        model.addAttribute("loggedInUsername", loggedInUsername);
-        return "bookstorelist";
+@GetMapping("/bookstore/list")
+public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+    @RequestParam(value = "kw", defaultValue = "") String kw, Principal principal) {
+
+    String loggedInUsername = principal.getName(); // 현재 로그인한 사용자의 이름
+    // 아래와 같이 ID 값을 가져올 수 있을 것입니다. (ID 값이 어떤 필드에 저장되어 있는지에 따라 다를 수 있습니다.)
+    Long loggedInUserId = userService.getUserIdByUsername(loggedInUsername);
+
+    Page<Book> paging = this.bookService.getList(page,loggedInUserId ,kw);
+
+    model.addAttribute("loggedInUserId", loggedInUsername);
+    model.addAttribute("paging", paging);
+    model.addAttribute("kw", kw);
+
+    return "bookstorelist";
+}
+
+
+@PreAuthorize("isAuthenticated()")
+    @GetMapping("/books")
+    public String listBooks(Model model,Principal principal) {
+     String loggedInUsername1 = principal.getName(); // 현재 로그인한 사용자의 이름
+    // 아래와 같이 ID 값을 가져올 수 있을 것입니다. (ID 값이 어떤 필드에 저장되어 있는지에 따라 다를 수 있습니다.)
+      Long loggedInUserId1 = userService.getUserIdByUsername(loggedInUsername1);
+
+        List<Book> books = bookRepository.findByCheck(loggedInUserId1,1);
+        model.addAttribute("books", books);
+        return "book-list";
     }
+
+
 }
