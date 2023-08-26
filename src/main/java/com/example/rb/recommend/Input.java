@@ -24,6 +24,7 @@ public class Input {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    private String username;
+    @ManyToOne
+    private SiteUser user;
 
 }

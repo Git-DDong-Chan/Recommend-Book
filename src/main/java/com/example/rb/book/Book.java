@@ -22,4 +22,6 @@ public class Book {
     private int checks;
     private int count;
     private Long user_id;
+
 }
+

@@ -17,6 +17,8 @@ public class ChatGptMessageService {
         JSONObject msgData = new JSONObject();
         msgData.put("id", input.getId());
         msgData.put("content", input.getContent());
+        msgData.put("user_id", input.getUser().getId());
+
 
         JSONObject msgObj = new JSONObject();
         msgObj.put("command", "request_chatgpt");
