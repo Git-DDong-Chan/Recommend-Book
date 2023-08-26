@@ -11,10 +11,11 @@ public class InputService {
 
     private final InputRepository inputRepository;
 
-    public Input create(String content, String user) {
+    public Input create(String content, SiteUser user) {
         Input i = new Input();
         i.setContent(content);
-        i.setUsername(user);
+        i.setUser(user);
         return this.inputRepository.save(i);
     }
+
 }

@@ -14,32 +14,33 @@
         <thead class="table-primary">
           <tr>
             <th style="width: 8%">Num</th>
-            <th style="width: 40%">Title</th>
+            <th style="width: 45%">Title</th>
             <th style="width: 25%">Author</th>
             <th style="width: 17%">Check</th>
         </tr>
         </thead>
         <tbody>
-            <tr
-                style="text-align: center"
-                th:each="book, iterStat : ${books}"
-                th:if="${book.checks == 0}"
-            >
-                <td th:text="${iterStat.count}"></td>
-                <td th:text="${book.title}"></td>
-                <td th:text="${book.author}"></td>
-                <td>
-                    <button
-                        class="btn btn-primary toggle-btn recommendation-btn"
-                        th:classappend="${book.checks == 1} ? 'checked' : 'not-checked'"
-                        th:attr="data-book-id=${book.num}, data-count=${book.checks}"
-                    >
-                        <span th:if="${book.checks == 1}">Checked</span>
-                        <span th:if="${book.checks == 0}">Would you read?</span>
-                    </button>
-                </td>
-            </tr>
+          <tr
+            style="text-align: center"
+            th:each="book, iterStat : ${books}"
+            th:if="${book.checks == 0}"
+          >
+            <td class="book-number"></td> <!-- 수정된 부분 -->
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.author}"></td>
+            <td>
+              <button
+                class="btn btn-primary toggle-btn recommendation-btn"
+                th:classappend="${book.checks == 1} ? 'checked' : 'not-checked'"
+                th:attr="data-book-id=${book.num}, data-count=${book.checks}"
+              >
+                <span th:if="${book.checks == 1}">Checked</span>
+                <span th:if="${book.checks == 0}">Would you read?</span>
+              </button>
+            </td>
+          </tr>
         </tbody>
+        
     </table>
       <div class="text-end mt-2">
         <form method="post" th:action="@{/recommend/delete-checks-zero}">
@@ -53,6 +54,16 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+
+      const bookNumberCells = document.querySelectorAll(".book-number");
+
+      bookNumberCells.forEach((cell, index) => {
+        cell.textContent = index + 1;
+      });
+
+
+
       const toggleButtons = document.querySelectorAll(".toggle-btn");
       const refreshButton = document.getElementById("refreshButton");
 
@@ -91,7 +102,7 @@
       refreshButton.addEventListener("click", function () {
         setTimeout(function () {
           window.location.reload();
-        }, 1000);
+        }, 500);
       });
     });
   </script>
