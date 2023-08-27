@@ -1,5 +1,6 @@
 package com.example.rb.book;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -20,14 +21,14 @@ public class BookService {
     }
 
     @Transactional
-    public void deleteChecks() {
-        List<Book> booksToDelete = bookRepository.findByChecks(0);
+    public void deleteChecks(Long loggedInUserId1) {
+        List<Book> booksToDelete = bookRepository.findByCheck(loggedInUserId1,0);
         bookRepository.deleteAll(booksToDelete);
     }
 
 
-      public Page<Book> getList(int page,Long loggedInUserId,String kw) {
-        Pageable pageable = PageRequest.of(page, 12);
+      public Page<Book> getList(String kw,Long loggedInUserId,int page) {
+        Pageable pageable = PageRequest.of(page, 6);
         return this.bookRepository.findAllByKeyword(kw,loggedInUserId ,pageable);
     }
 }
