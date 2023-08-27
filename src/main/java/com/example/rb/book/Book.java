@@ -20,6 +20,7 @@ public class Book {
     private String author;
     private String comment;
     private int checks;
+    private int deletecheck;
     private int count;
     private Long user_id;
 

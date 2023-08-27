@@ -31,4 +31,7 @@ public class BookService {
         Pageable pageable = PageRequest.of(page, 6);
         return this.bookRepository.findAllByKeyword(kw,loggedInUserId ,pageable);
     }
+    public void deleteBook(Long bookId) {
+        bookRepository.deleteById(bookId);
+    }
 }
