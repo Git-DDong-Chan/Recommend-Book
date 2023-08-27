@@ -29,12 +29,7 @@ public class BookController {
     private final BookRepository bookRepository;
     private final BookService bookService;
    
-    @GetMapping("/recommend/list")
-    public String listrecommendBooks(Model model) {
-        List<Book> books = bookRepository.findAll();
-        model.addAttribute("books", books);
-        return "recommend_list";
-    }
+   
 
 
     @ResponseBody
@@ -99,26 +94,19 @@ public class BookController {
 
         return response;
     }
-
-    @PostMapping("/recommend/delete-checks-zero")
-    public String deleteChecks() {
-        bookService.deleteChecks();
-        return "redirect:/books";
-    }
-
- @Autowired
+@Autowired
 private UserService userService;
 
 @PreAuthorize("isAuthenticated()")
 @GetMapping("/bookstore/list")
-public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-    @RequestParam(value = "kw", defaultValue = "") String kw, Principal principal) {
+public String list(Model model,
+    @RequestParam(value = "kw", defaultValue = "") String kw, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page) {
 
     String loggedInUsername = principal.getName(); // 현재 로그인한 사용자의 이름
     // 아래와 같이 ID 값을 가져올 수 있을 것입니다. (ID 값이 어떤 필드에 저장되어 있는지에 따라 다를 수 있습니다.)
     Long loggedInUserId = userService.getUserIdByUsername(loggedInUsername);
 
-    Page<Book> paging = this.bookService.getList(page,loggedInUserId ,kw);
+    Page<Book> paging = this.bookService.getList(kw,loggedInUserId ,page);
 
     model.addAttribute("loggedInUserId", loggedInUsername);
     model.addAttribute("paging", paging);
@@ -126,9 +114,7 @@ public String list(Model model, @RequestParam(value = "page", defaultValue = "0"
 
     return "bookstorelist";
 }
-
-
-@PreAuthorize("isAuthenticated()")
+   @PreAuthorize("isAuthenticated()")
     @GetMapping("/books")
     public String listBooks(Model model,Principal principal) {
      String loggedInUsername1 = principal.getName(); // 현재 로그인한 사용자의 이름
@@ -138,6 +124,25 @@ public String list(Model model, @RequestParam(value = "page", defaultValue = "0"
         List<Book> books = bookRepository.findByCheck(loggedInUserId1,1);
         model.addAttribute("books", books);
         return "book-list";
+    }
+   @PreAuthorize("isAuthenticated()")
+    @GetMapping("/recommend/list")
+    public String listrecommendBooks(Model model,Principal principal) {
+        String loggedInUsername1 = principal.getName(); // 현재 로그인한 사용자의 이름
+      // 아래와 같이 ID 값을 가져올 수 있을 것입니다. (ID 값이 어떤 필드에 저장되어 있는지에 따라 다를 수 있습니다.)
+      Long loggedInUserId1 = userService.getUserIdByUsername(loggedInUsername1);
+
+        List<Book> books = bookRepository.findByCheck(loggedInUserId1,0);
+        model.addAttribute("books", books);
+        return "recommend_list";
+    }
+    @PostMapping("/recommend/delete-checks-zero")
+    public String deleteChecks(Principal principal) {
+        String loggedInUsername1 = principal.getName(); // 현재 로그인한 사용자의 이름
+      // 아래와 같이 ID 값을 가져올 수 있을 것입니다. (ID 값이 어떤 필드에 저장되어 있는지에 따라 다를 수 있습니다.)
+      Long loggedInUserId1 = userService.getUserIdByUsername(loggedInUsername1);
+        bookService.deleteChecks(loggedInUserId1);
+        return "redirect:/books";
     }
 
 
