@@ -9,7 +9,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.validation.BindingResult;
 
-import com.example.rb.recommend.InputForm;
 import com.example.rb.user.SiteUser;
 import com.example.rb.user.UserService;
 import com.example.rb.chatgpt.ChatGptMessageService;
