@@ -1,24 +1,24 @@
-<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<nav th:fragment="navbarFragment" class="navbar navbar-expand-lg navbar-light bg-light border-bottom py-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Recommend-Book</a>
+        <a class="navbar-brand fs-3" href="/">RecoBook.</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <!-- ms-auto 클래스 추가 -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fs-5"> <!-- 모든 링크의 글자 크기를 키움 -->
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/recommend/myemotion}">Recommend</a>
+                    <a class="nav-link" th:href="@{/recommend/myemotion}">책 추천</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/books}">WishList</a>
+                    <a class="nav-link" th:href="@{/books}" style="margin: 0px 20px 0px; 20px">위시리스트</a>
                 </li>
                 <li class="nav-item" style="margin-right: 30px ;">
-                    <a class="nav-link" th:href="@{/bookstore/list}">Liabrary</a>
+                    <a class="nav-link" th:href="@{/bookstore/list}">라이브러리</a>
                 </li>
             </ul>
 
-            <ul class="navbar-nav ml-auto"> <!-- ml-auto 클래스 추가 -->
+            <ul class="navbar-nav ml-auto fs-5"> <!-- 모든 링크의 글자 크기를 키움 -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -26,11 +26,11 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li>
-                            <a class="dropdown-item" sec:authorize="isAnonymous()" th:href="@{/user/login}">Sign in</a>
-                            <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">Sign out</a>
+                            <a class="dropdown-item" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                            <a class="dropdown-item" sec:authorize="isAuthenticated()" th:href="@{/user/logout}">로그아웃</a>
                         </li>
                         <li th:unless="${#authorization.expression('isAuthenticated()')}">
-                            <a class="dropdown-item" th:href="@{/user/signup}">Sign up</a>
+                            <a class="dropdown-item" th:href="@{/user/signup}">회원가입</a>
                         </li>
                     </ul>
                 </li>

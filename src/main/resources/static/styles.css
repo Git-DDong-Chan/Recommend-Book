@@ -199,3 +199,47 @@ footer {
     word-break: break-word;
   }
 }
+
+
+.img{
+  position: relative;
+  background-image: url(images/wallpaper.jpg);                                                               
+  height: 100vh;
+  background-size: cover;
+}
+
+.img-cover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);                                                                 
+  z-index:1;
+}
+
+.img .content{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);                                                                   
+  font-size:5rem;
+  color: white;
+  z-index: 2;
+  text-align: center;
+}
+
+
+.btn-link {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.btn-link:hover {
+  background-color: #e9ecef;
+}
