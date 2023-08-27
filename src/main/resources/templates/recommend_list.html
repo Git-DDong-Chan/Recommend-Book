@@ -1,24 +1,23 @@
 <html layout:decorate="~{layout}">
   <div layout:fragment="content" class="container">
     <div class="container mt-5">
+      <body class="bodycss">
       <div class="row">
-        <div class="col">
-          <h1 class="mb-4">Recommend Book List</h1>
-        </div>
+          <h1 class="text-center mb-4">Recommend Book List</h1>
         <div class="col text-end">
-          <button id="refreshButton" class="btn btn-primary my-2">
+          <button id="refreshButton" class="btn btn-dark my-2">
             책 추천받기
           </button>
         </div>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr style="text-align: center">
-            <th>Num</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Check</th>
-          </tr>
+      <table class="table table-bordered table-hover custom-table">
+        <thead class="table-primary">
+          <tr>
+            <th style="width: 8%">Num</th>
+            <th style="width: 45%">Title</th>
+            <th style="width: 25%">Author</th>
+            <th style="width: 17%">Check</th>
+        </tr>
         </thead>
         <tbody>
           <tr
@@ -26,7 +25,7 @@
             th:each="book, iterStat : ${books}"
             th:if="${book.checks == 0}"
           >
-            <td th:text="${iterStat.count}"></td>
+            <td class="book-number"></td> <!-- 수정된 부분 -->
             <td th:text="${book.title}"></td>
             <td th:text="${book.author}"></td>
             <td>
@@ -41,10 +40,11 @@
             </td>
           </tr>
         </tbody>
-      </table>
+        
+    </table>
       <div class="text-end mt-2">
         <form method="post" th:action="@{/recommend/delete-checks-zero}">
-          <button type="submit" class="btn btn-primary">확인</button>
+          <button type="submit" class="btn btn-dark">확인</button>
         </form>
       </div>
     </div>
@@ -52,8 +52,18 @@
 </html>
 
 
-  <script layout:fragment="script" type="text/javascript">
+  <script>
     document.addEventListener("DOMContentLoaded", function () {
+
+
+      const bookNumberCells = document.querySelectorAll(".book-number");
+
+      bookNumberCells.forEach((cell, index) => {
+        cell.textContent = index + 1;
+      });
+
+
+
       const toggleButtons = document.querySelectorAll(".toggle-btn");
       const refreshButton = document.getElementById("refreshButton");
 
@@ -69,7 +79,7 @@
               if (data.success) {
                 this.setAttribute("data-count", data.newChecks);
                 buttonSpan.textContent =
-                  data.newChecks === 1 ? "Checked" : "Would you Read?";
+                  data.newChecks === 1 ? "Checked" : "Would you read?";
 
                 // Update the button class based on the newCount
                 if (data.newChecks === 1) {
@@ -92,7 +102,7 @@
       refreshButton.addEventListener("click", function () {
         setTimeout(function () {
           window.location.reload();
-        }, 700);
+        }, 500);
       });
     });
   </script>

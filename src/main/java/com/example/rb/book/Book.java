@@ -21,5 +21,7 @@ public class Book {
     private String comment;
     private int checks;
     private int count;
+    private Long user_id;
 
 }
+

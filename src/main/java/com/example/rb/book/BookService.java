@@ -26,8 +26,8 @@ public class BookService {
     }
 
 
-      public Page<Book> getList(int page, String kw) {
+      public Page<Book> getList(int page,Long loggedInUserId,String kw) {
         Pageable pageable = PageRequest.of(page, 12);
-        return this.bookRepository.findAllByKeyword(kw, pageable);
+        return this.bookRepository.findAllByKeyword(kw,loggedInUserId ,pageable);
     }
 }

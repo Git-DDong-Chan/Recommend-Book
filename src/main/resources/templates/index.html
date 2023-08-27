@@ -1,23 +1,25 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>RB</title>
-    <link rel="stylesheet" href="/bootstrap.min.css">
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-    <nav th:replace="~{navbar :: navbarFragment}"></nav>
+<html layout:decorate="~{layout}">
+  <div layout:fragment="content" class="container">
     <div class="container mt-5">
+      <body class="bodycss">
         <div class="row justify-content-center">
-            <div class="col-md-4">
-                <a th:href="@{/recommend/myemotion}" class="btn btn-primary btn-block mb-3">책 추천받기</a>
-                <a th:href="@{/books}" class="btn btn-primary btn-block mb-3">위시리스트</a>
-                <a th:href="@{/bookstore/list}" class="btn btn-primary btn-block mb-3">책꽂이</a>
-            </div>
+          <div class="col-md-4">
+            <a
+              th:href="@{/recommend/myemotion}"
+              class="btn btn-primary btn-block mb-3"
+              >Recommend</a
+            >
+            <a th:href="@{/books}" class="btn btn-primary btn-block mb-3"
+              >Wish-List</a
+            >
+            <a
+              th:href="@{/bookstore/list}"
+              class="btn btn-primary btn-block mb-3"
+              >Library</a
+            >
+          </div>
         </div>
+      </body>
     </div>
-    <script src="/bootstrap.min.js"></script>
-</body>
+  </div>
 </html>

@@ -2,9 +2,7 @@ package com.example.rb.recommend;
 
 
 import com.example.rb.user.SiteUser;
-
 import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -16,6 +14,8 @@ public class InputService {
     public Input create(String content, SiteUser user) {
         Input i = new Input();
         i.setContent(content);
+        i.setUser(user);
         return this.inputRepository.save(i);
     }
+
 }

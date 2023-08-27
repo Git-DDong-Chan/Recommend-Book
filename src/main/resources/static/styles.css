@@ -1,3 +1,52 @@
+.bodycss {
+  text-align: center;
+  font-family: "Nanum Gothic", sans-serif;
+  background-color: #f8f9fa; /* 추가: 배경색 설정 */
+}
+
+.bodycss1 {
+  font-family: "Nanum Gothic", sans-serif;
+  background-color: #f8f9fa; /* 추가: 배경색 설정 */
+}
+
+nav {
+  text-align: center;
+  font-family: 'Nanum Gothic', sans-serif;
+  margin: 0 20px; /* 좌우 여백을 20px로 설정 */
+
+}
+
+footer {
+  position: absolute; /* Set the footer as absolutely positioned */
+  bottom: 0; /* Place the footer at the bottom */
+  background-color: #d4d4d4; /* Background color of the footer */
+  padding-top: 25px; /* Add padding for content */
+  text-align: center; /* Center-align content in the footer */
+  width: 100%;
+}
+
+.navbar-nav .dropdown-menu {
+  right: 5px;
+  left: auto; /* 원하는 만큼 왼쪽으로 조정 */
+  
+}
+
+/* 테이블 스타일 */
+.custom-table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* 테이블 행 스타일 */
+.custom-table tbody tr {
+  height: 40px;
+}
+
+/* Check 버튼 스타일 */
+.custom-table .recommendation-btn {
+  padding: 5px 10px;
+}
+
 .recommendation-btn {
   transition: background-color 0.3s ease-in-out;
 }
@@ -52,4 +101,97 @@
   background-position: center center;
   background-repeat: no-repeat;
   padding: 20px;
+}
+
+.read {
+  background-color: green;
+}
+
+.not-read {
+  background-color: red;
+}
+
+/* Remove the button border */
+
+.read:hover {
+  background-color: red;
+}
+
+.not-read:hover {
+  background-color: green;
+}
+
+/* Display comment input when toggled to 'Read' */
+.comment-input {
+  display: none;
+}
+.read + .comment-input {
+  display: block;
+}
+
+/* 모달 스타일 */
+#modal.modal-overlay {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경 */
+  z-index: 1000; /* 높은 z-index로 화면 상의 최상위 레이어로 표시 */
+}
+
+#modal .modal-window {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  max-width: 90%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1001; /* 모달 창을 오버레이 위로 표시 */
+}
+
+#modal .title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#modal .close-area {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* 테이블 스타일 */
+.table th,
+.table td {
+  vertical-align: middle;
+}
+
+/* 모달 내용 스타일 */
+#input-text {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* 버튼 스타일 */
+.btn-open-modal {
+  width: 100px;
+}
+#title {
+  font-size: 20px;
+}
+
+/* 작은 화면에서 테이블 스타일 조정 */
+@media (max-width: 576px) {
+  .table td {
+    word-break: break-word;
+  }
 }
