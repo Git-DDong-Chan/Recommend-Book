@@ -74,23 +74,22 @@
         <script>
           document.addEventListener("DOMContentLoaded", function () {
             const bookNumberCells = document.querySelectorAll(".book-number");
-
+        
             bookNumberCells.forEach((cell, index) => {
               cell.textContent = index + 1;
             });
-
+        
             const toggleButtons = document.querySelectorAll(".toggle-btn");
             const btnOpenModals = document.querySelectorAll(".btn-open-modal");
-            const inputText = document.getElementById("input-text"); // textarea 요소
+            const inputText = document.getElementById("input-text");
             const saveButton = document.getElementById("save-button");
-            const delteButton = document.getElementById("delte-button"); // SAVE 버튼 요소
-
+        
             toggleButtons.forEach((button) => {
               button.addEventListener("click", function () {
                 const bookId = this.getAttribute("data-book-id");
                 const currentCount = parseInt(this.getAttribute("data-count"));
                 const buttonSpan = this.querySelector("span");
-
+        
                 fetch(`/toggleRecommend/${bookId}`)
                   .then((response) => response.json())
                   .then((data) => {
@@ -98,7 +97,7 @@
                       this.setAttribute("data-count", data.newCount);
                       buttonSpan.textContent =
                         data.newCount === 1 ? "Read" : "Not Read";
-
+        
                       if (data.newCount === 1) {
                         button.classList.add("read");
                         button.classList.remove("not-read");
@@ -115,46 +114,40 @@
                   });
               });
             });
-
+        
             btnOpenModals.forEach((btnOpenModal) => {
               btnOpenModal.addEventListener("click", function () {
                 const bookComment = this.getAttribute("data-comment");
-                const bookId = this.getAttribute("data-book-id"); // 도서의 고유 ID 가져오기
-
-                // textarea에 코멘트 내용을 표시
-                inputText.value = bookComment || ""; // 코멘트가 없을 경우 빈 문자열 사용
-
+                const bookId = this.getAttribute("data-book-id");
+        
+                inputText.value = bookComment || "";
+        
                 modalOn();
-                saveButton.setAttribute("data-book-id", bookId); // SAVE 버튼에 도서의 고유 ID 설정
+                saveButton.setAttribute("data-book-id", bookId);
               });
             });
-
-            // 모달 열기 버튼 이벤트 리스너
+        
             function modalOn() {
+              const modal = document.getElementById("modal");
               modal.style.display = "flex";
             }
-
-            // 모달 닫기 버튼 이벤트 리스너
+        
             const closeBtn = document.querySelector(".close-area");
             closeBtn.addEventListener("click", function () {
               modalOff();
             });
-
-            // 저장 버튼 이벤트 리스너
+        
             saveButton.addEventListener("click", function () {
-              const newText = inputText.value; // 입력한 텍스트 가져오기
-
-              const bookId = saveButton.getAttribute("data-book-id"); // SAVE 버튼에 저장된 도서 ID 가져오기
-
-              // CSRF 토큰 가져오기
+              const newText = inputText.value;
+              const bookId = saveButton.getAttribute("data-book-id");
+        
               const csrfToken = document
                 .querySelector('meta[name="_csrf"]')
                 .getAttribute("content");
               const csrfHeader = document
                 .querySelector('meta[name="_csrf_header"]')
                 .getAttribute("content");
-
-              // 새로운 코멘트 내용을 데이터베이스에 저장하는 요청 보내기
+        
               fetch(`/saveComment/${bookId}`, {
                 method: "POST",
                 headers: {
@@ -178,39 +171,43 @@
                   alert("오류가 발생하여 코멘트 저장에 실패했습니다.");
                 });
             });
+        
             function modalOff() {
+              const modal = document.getElementById("modal");
               modal.style.display = "none";
             }
-          });
-
-          document.querySelectorAll(".delete-button").forEach((button) => {
-            button.addEventListener("click", function () {
-              const csrfToken = document
-                .querySelector('meta[name="_csrf"]')
-                .getAttribute("content");
-              const csrfHeader = document
-                .querySelector('meta[name="_csrf_header"]')
-                .getAttribute("content");
-
-              const bookId = this.getAttribute("data-book-id"); // bookNum 변수로 대체
-              const parentRow = button.closest("tr"); // Find the parent <tr> element
-
-              fetch(`/delete-book/${bookId}`, {
-                method: "DELETE",
-                headers: {
-                  [csrfHeader]: csrfToken,
-                },
-              }).then((response) => {
-                if (response.ok) {
-                  parentRow.remove(); // Remove the row from the table
-                  return response.json();
-                } else {
-                  throw new Error("Failed to delete book");
-                }
+        
+            document.querySelectorAll(".delete-button").forEach((button) => {
+              button.addEventListener("click", function () {
+                const csrfToken = document
+                  .querySelector('meta[name="_csrf"]')
+                  .getAttribute("content");
+                const csrfHeader = document
+                  .querySelector('meta[name="_csrf_header"]')
+                  .getAttribute("content");
+            
+                const bookId = this.getAttribute("data-book-id");
+                const parentRow = button.closest("tr");
+            
+                fetch(`/delete-book/${bookId}`, {
+                  method: "DELETE",
+                  headers: {
+                    [csrfHeader]: csrfToken,
+                  },
+                }).then((response) => {
+                  if (response.ok) {
+                    parentRow.remove();
+                    alert("책이 삭제되었습니다.");
+                    location.reload(); // Reload the page after successful deletion
+                  } else {
+                    throw new Error("Failed to delete book");
+                  }
+                });
               });
             });
           });
         </script>
+        
       </body>
     </div>
   </div>

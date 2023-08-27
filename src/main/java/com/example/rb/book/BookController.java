@@ -2,6 +2,7 @@ package com.example.rb.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.security.Principal;
@@ -146,11 +147,15 @@ public String list(Model model,
         return "redirect:/books";
     }
     
-   @DeleteMapping("/delete-book/{bookId}")
-    public String deleteBook(@PathVariable Long bookId) {
+@DeleteMapping("/delete-book/{bookId}")
+public ResponseEntity<?> deleteBook(@PathVariable Long bookId) {
+    try {
         bookService.deleteBook(bookId);
-        return "redirect:/books"; // Redirect to the updated book list page
+        return ResponseEntity.ok().build(); // Return a success response
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().build(); // Return an error response
     }
+}
 
 
 }
