@@ -4,7 +4,7 @@
 ###주제 : chatgpt api를 활용하여 사용자의 감정에 기반한 책 추천 프로그램
 <br>
 
-![image.png](/.attachments/image-986180ec-31ee-46d8-a94f-e07576809071.png)
+![image.png](https://dev.azure.com/taegung/2c7b3894-ce2c-43ff-a406-b5cda3afb630/_apis/git/repositories/78bcf984-fd14-4eb6-8eb6-76cfe1c1953f/Items?path=/.attachments/image-986180ec-31ee-46d8-a94f-e07576809071.png&download=false&resolveLfs=true&%24format=octetStream&api-version=5.0-preview.1&sanitize=true&versionDescriptor.version=wikiMaster)
 
 ##Flow
     1. main 화면에서 추천, 위시리스트, 책꽂이 기능을 선택한다.
