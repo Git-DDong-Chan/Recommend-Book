@@ -1,16 +1,16 @@
 # Recommend-Book
 
 
-###주제 : chatgpt api를 활용하여 사용자의 감정에 기반한 책 추천 프로그램
+### 주제 : chatgpt api를 활용하여 사용자의 감정에 기반한 책 추천 프로그램
 <br>
 
-![image.png](https://dev.azure.com/taegung/2c7b3894-ce2c-43ff-a406-b5cda3afb630/_apis/git/repositories/78bcf984-fd14-4eb6-8eb6-76cfe1c1953f/Items?path=/.attachments/image-986180ec-31ee-46d8-a94f-e07576809071.png&download=false&resolveLfs=true&%24format=octetStream&api-version=5.0-preview.1&sanitize=true&versionDescriptor.version=wikiMaster)
+![image](https://github.com/Git-DDong-Chan/Recommend-Book/assets/101232265/a842eb53-5fa8-4a74-ba51-329a92523533)
 
-##Flow
+## Flow
     1. main 화면에서 추천, 위시리스트, 책꽂이 기능을 선택한다.
     2. 추천을 통해 ChatGpt Api를 가져와 OpenAi Enbedding으로 가공을 해준다.
     3. 추천해준 책리스트를 추출하여 List를 만들어준다.
-    4. List에서 사용자가 원한느 책을 선택하고 확인을 누르면 책에 대한 정보는 ‘위시리스트’로 이동하게 된다.
+    4. List에서 사용자가 원하 책을 선택하고 확인을 누르면 책에 대한 정보는 ‘위시리스트’로 이동하게 된다.
     5. 위시리스트에서 읽은 책을 선택하고 한 줄 감상평을 남긴다.
     6. 읽은 책 정보는 책꽂이로 이동하게 된다.
 <br>
@@ -38,14 +38,14 @@
     - 검색 기능
 <br>
 
-- ##적용 기능
+## 적용 기능
     1. Auth 기능
     2. OpenAi API
     3. MySQL
     4. SpringBoot
 <br>
 
-- ##사용되는 기술
+## 사용되는 기술
 
      1. SpringBoot
      2. Bootstrap
@@ -57,7 +57,7 @@
      8. Docker
 <br>
 
-- ##역할분담
+## 역할분담
     - 진영 김: 프로젝트 기획 및 총괄, 프론트엔드 개발
     - 민재 조: 백엔드 개발, 데이터베이스 관리
     - 태경 윤: OpenAi API 연동, 감정 분석 및 추천 알고리즘 개발
@@ -74,7 +74,7 @@
 
 
 
-##QnA 및 궁금사항
+## QnA 및 궁금사항
 
 1. 회원DB,책DB 이렇게?
 
@@ -91,6 +91,5 @@
 7. 텍스트 파일을 DB에 넣는게 위시리스트DB구현인거죠?
 
 <br>
-
 
 
