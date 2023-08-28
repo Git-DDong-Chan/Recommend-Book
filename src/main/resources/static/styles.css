@@ -83,7 +83,7 @@ footer {
 
   border: none;
   width: 210px;
-  height: 260px;
+  height: 280px;
   display: flex;
   align-items: flex-start; /* Align text to the top */
   margin: 0px 15px 0px 100px; /* Adjust margin to center the text vertically */
@@ -92,6 +92,7 @@ footer {
   background-position: center;
   overflow: hidden;
   padding-left: 1dvh;
+  padding-right: 2dvh;
   padding-top: 2dvh; /* Adjust this value to control the space between the top and text */
 }
 
