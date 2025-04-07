@@ -3,16 +3,16 @@
 
 ### 주제 : chatgpt api를 활용하여 사용자의 감정에 기반한 책 추천 프로그램
 
-##메인페이지 
+## 메인페이지 
 ![image](https://github.com/user-attachments/assets/a188857e-44a0-4ed0-9de3-468f1ceaa5d4)
 
-##감정 입력
+## 감정 입력
 ![image](https://github.com/user-attachments/assets/04e1eaea-7171-43b0-bba0-5aec98a102c6)
 
-##책 추천
+## 책 추천
 ![image](https://github.com/user-attachments/assets/4dcd73a8-158a-4dba-83f3-57a99d06900d)
 
-##위시리스트
+## 위시리스트
 ![image](https://github.com/user-attachments/assets/9043f1ba-bd42-4e94-a9de-24796e053830)
 
 ## 북 라이브러리
